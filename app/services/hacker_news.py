@@ -1,11 +1,21 @@
+from flask import jsonify
 import httplib
 import requests
 import json
-import code
 
 hacker_news_endpoint = 'https://hacker-news.firebaseio.com/v0/'
 
-def top10_posts():
+def get_all(limit):
     response = requests.get(hacker_news_endpoint+'beststories.json').content
     data = json.loads(response)
-    return data[:10]
+    return data[:limit]
+
+def get(post_id):
+    response = requests.get(hacker_news_endpoint+'item/'+post_id+'.json').content
+    data = json.loads(response)
+    return {
+        'title': data['title'],
+        'score': data['score'],
+        'comments': data['kids'],
+        'author': data['by']
+    }

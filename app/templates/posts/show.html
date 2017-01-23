@@ -1,0 +1,8 @@
+<h1>{{post.title}}</h1>
+<small>by {{post.author}} | {{post.score}} upvotes</small>
+<hr />
+<ul>
+{% for comment in post.comments%}
+  <li>{{comment}}</li>
+{% endfor %}
+</ul>
