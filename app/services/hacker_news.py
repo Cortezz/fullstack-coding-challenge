@@ -1,4 +1,3 @@
-from flask import jsonify
 import httplib
 import requests
 import json
@@ -14,8 +13,11 @@ def get(post_id):
     response = requests.get(hacker_news_endpoint+'item/'+post_id+'.json').content
     data = json.loads(response)
     return {
-        'title': data['title'],
-        'score': data['score'],
-        'comments': data['kids'],
-        'author': data['by']
+        'id': post_id,
+        'post_info': {
+            'title': data['title'],
+            'score': data['score'],
+            'comments': data['kids'],
+            'author': data['by']
+        }
     }

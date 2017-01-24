@@ -1,7 +1,9 @@
 from flask import Flask, render_template
+from flask_pymongo import PyMongo
 
 app = Flask(__name__)
 app.config.from_object('config')
+mongo = PyMongo(app)
 
 from app.controllers.posts_controller import posts
 
