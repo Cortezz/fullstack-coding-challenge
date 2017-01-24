@@ -5,8 +5,10 @@
   <small>by {{post.post_info.author}} | {{post.post_info.score}} upvotes</small>
   <hr />
   <ul>
-  {% for comment in post.comments%}
-    <li>{{comment}}</li>
+  {% for comment in post.comments %}
+    <li>
+      {{comment.author}}: {{comment.text|safe}}
+    </li>
   {% endfor %}
   </ul>
 {% endblock %}
