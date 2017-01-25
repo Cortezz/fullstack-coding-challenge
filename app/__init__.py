@@ -5,7 +5,7 @@ from app.services.background_jobs import save_posts
 
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(save_posts, 'cron', second='*/120')
+scheduler.add_job(save_posts, 'cron', second='*/520')
 scheduler.start()
 
 app = Flask(__name__)
