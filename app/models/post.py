@@ -4,7 +4,7 @@ import code
 
 
 def get_all():
-    return mongo.db.posts.find({})
+    return mongo.db.posts.find({}).sort('score',-1)
 
 def get(post_id):
     return mongo.db.posts.find_one({'id': post_id})

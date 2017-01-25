@@ -14,12 +14,10 @@ def get_post(post_id):
     data = json.loads(response)
     return {
         'id': post_id,
-        'post_info': {
-            'title': data['title'],
-            'score': data['score'],
-            'comments': data['kids'],
-            'author': data['by']
-        }
+        'title': data['title'],
+        'score': data['score'],
+        'comments': data['kids'],
+        'author': data['by']
     }
 
 def get_comment(comment_id):

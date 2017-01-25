@@ -26,16 +26,16 @@ def save_hacker_news_posts():
 
 def insert_item(db,post_id):
     post = hacker_news_api.get_post(str(post_id))
-    post_title = post['post_info']['title']
+    post_title = post['title']
     uid_1 = unbabel_api.post_mt_translation(post_title, LAN_1)
     uid_2 = unbabel_api.post_mt_translation(post_title, LAN_2)
-    post['comments'] = fetch_comment_data(post['post_info']['comments'])
+    post['comments'] = fetch_comment_data(post['comments'])
     add_translated_titles(post, {LAN_1: uid_1, LAN_2: uid_2})
     db.new_posts.insert_one(post)
 
 def add_translated_titles(post, uids):
-    post['post_info']["title-%s"%LAN_1] = unbabel_api.get_mt_translation(uids[LAN_1])
-    post['post_info']["title-%s"%LAN_2] = unbabel_api.get_mt_translation(uids[LAN_2])
+    post["title-%s"%LAN_1] = unbabel_api.get_mt_translation(uids[LAN_1])
+    post["title-%s"%LAN_2] = unbabel_api.get_mt_translation(uids[LAN_2])
 
 
 def fetch_comment_data(comments_ids):
