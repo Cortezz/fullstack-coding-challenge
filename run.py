@@ -1,4 +1,5 @@
 #!env/bin/python
 from app import app
 
-app.run(debug=True, use_reloader=False)
+#use_reloader = False
+app.run(debug=True)

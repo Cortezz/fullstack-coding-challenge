@@ -4,7 +4,7 @@ import code
 
 
 def get_all():
-    return mongo.db.stories.find({})
+    return mongo.db.posts.find({})
 
 def get(post_id):
-    return mongo.db.stories.find_one({'id': post_id})
+    return mongo.db.posts.find_one({'id': post_id})

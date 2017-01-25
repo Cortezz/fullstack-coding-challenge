@@ -7,6 +7,10 @@
     {% for post in posts %}
       <li>
         <a href='/posts/{{post.id}}'>{{post.post_info.title}}</a> | <small> {{post.post_info.score}}</small>
+        <div>
+          <small>it: {{post['title-it']}}</small> <br />
+          <small>fr: {{post['title-fr']}}</small>
+        </div>
       </li>
     {% endfor %}
   </ul>
