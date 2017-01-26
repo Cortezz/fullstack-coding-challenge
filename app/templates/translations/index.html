@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Translation Dashboard</h1>
+  <br />
+  <ul>
+    <li>
+      Completed: {{completed}}
+    </li>
+    <li>
+      Failed: {{failed}}
+    </li>
+    <li>
+      In Progress: {{in_progress}}
+    </li>
+  </ul>
+{% endblock %}

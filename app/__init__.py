@@ -9,5 +9,7 @@ db = client['multilingual-hackernews']
 #mongo = PyMongo(app)
 
 from app.controllers.posts_controller import posts
+from app.controllers.translations_controller import translations
 
+app.register_blueprint(translations)
 app.register_blueprint(posts)
