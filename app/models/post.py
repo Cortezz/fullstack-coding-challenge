@@ -1,5 +1,4 @@
 from app import db
-import code
 
 def get_all():
     return db.posts.find({}).sort('score',-1)

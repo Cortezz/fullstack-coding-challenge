@@ -27,6 +27,13 @@ def get_mt_translation(uid):
     data = response.json()
 
     if 'translatedText' in data:
-        return data['translatedText']
+        return {
+            'uid': uid,
+            'status': 'completed',
+            'text': data['translatedText']
+        }
     else:
-        return "No translation available"
+        return {
+            'uid': uid,
+            'status': data['status']
+        }
