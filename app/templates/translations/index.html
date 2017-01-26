@@ -1,16 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
-  <h1>Translation Dashboard</h1>
-  <br />
-  <ul>
-    <li>
-      Completed: {{completed}}
-    </li>
-    <li>
-      Failed: {{failed}}
-    </li>
-    <li>
-      In Progress: {{in_progress}}
-    </li>
-  </ul>
+<h2>Translation status: {{type}} </h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Translation ID</th>
+      <th>Target Language</th>
+      {% if type == 'completed' %}
+        <th> Translation </th>
+      {% endif %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for translation in translations %}
+    <tr>
+      <td>{{translation.uid}}</td>
+      <td>{{translation.target_language}}</td>
+      {% if type == 'completed' %}
+        <td>{{translation.text}}</td>
+      {% endif %}
+    </tr>
+    {% endfor %}
 {% endblock %}

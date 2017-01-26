@@ -3,13 +3,7 @@ from app.models import translation
 
 translations = Blueprint('translations', __name__, url_prefix='/translations')
 
-@translations.route('/')
-def index():
-    completed_translations = translation.get_by_status('completed')
-    failed_translations = translation.get_by_status('failed')
-    pending_translations = translation.get_by_status('in_progress')
-    return render_template('translations/index.html',
-        completed=completed_translations,
-        failed = failed_translations,
-        in_progress = pending_translations
-    )
+@translations.route('/<status>')
+def index(status):
+    translations = translation.get_by_status(status)
+    return render_template('translations/index.html', type = status, translations = translations)

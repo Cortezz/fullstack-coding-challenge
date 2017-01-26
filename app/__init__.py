@@ -10,6 +10,8 @@ db = client['multilingual-hackernews']
 
 from app.controllers.posts_controller import posts
 from app.controllers.translations_controller import translations
+from app.controllers.dashboard_controller import dashboard
 
+app.register_blueprint(dashboard)
 app.register_blueprint(translations)
 app.register_blueprint(posts)

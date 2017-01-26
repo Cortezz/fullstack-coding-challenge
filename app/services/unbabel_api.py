@@ -30,10 +30,12 @@ def get_mt_translation(uid):
         return {
             'uid': uid,
             'status': 'completed',
-            'text': data['translatedText']
+            'text': data['translatedText'],
+            'target_language': data['target_language']
         }
     else:
         return {
             'uid': uid,
-            'status': data['status']
+            'status': data['status'],
+            'target_language': data['target_language']
         }

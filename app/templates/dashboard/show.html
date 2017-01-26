@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Translation Dashboard</h1>
+  <br />
+  <ul>
+    <li>
+      <a href="/translations/completed">Completed</a>: {{completed}}
+    </li>
+    <li>
+      <a href="/translations/failed">Failed</a>: {{failed}}
+    </li>
+    <li>
+      <a href="/translations/in_progress">In Progress</a>: {{in_progress}}
+    </li>
+  </ul>
+{% endblock %}
