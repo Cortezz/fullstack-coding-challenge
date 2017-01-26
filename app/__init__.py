@@ -1,9 +1,12 @@
 from flask import Flask, render_template
-from flask_pymongo import PyMongo
+from pymongo import MongoClient
 
 app = Flask(__name__)
 app.config.from_object('config')
-mongo = PyMongo(app)
+
+client = MongoClient('localhost', 27017)
+db = client['multilingual-hackernews']
+#mongo = PyMongo(app)
 
 from app.controllers.posts_controller import posts
 

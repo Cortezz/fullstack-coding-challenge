@@ -1,37 +1,34 @@
-import pymongo
-from app.services import hacker_news_api, unbabel_api
+from app.services import hacker_news_api, unbabel_api, mongo
+from app.models import post
 from config import TOP_POSTS_LIMIT, LAN_1, LAN_2
-from pymongo import MongoClient
 from bson.objectid import ObjectId
 import threading
 import time
 
 def save_hacker_news_posts():
     print "Starting job.."
-    client = MongoClient('localhost', 27017)
-    db = client['multilingual-hackernews']
-    db.new_posts.drop()
+    mongo.delete_collection('new_posts')
     posts = hacker_news_api.get_all_posts(TOP_POSTS_LIMIT)
 
     start_time = time.time()
-    threads = [threading.Thread(target=insert_item, args=(db,post)) for post in posts]
+    threads = [threading.Thread(target=insert_post, args=(p,)) for p in posts]
     for thread in threads:
         thread.start()
     for thread in threads:
         thread.join()
 
-    db.posts.drop()
-    db.new_posts.rename('posts')
+    mongo.delete_collection('posts')
+    mongo.rename_collection('new_posts','posts')
     print("Job completed: it took %s seconds ---" % (time.time() - start_time))
 
-def insert_item(db,post_id):
-    post = hacker_news_api.get_post(str(post_id))
-    post_title = post['title']
+def insert_post(post_id):
+    p = hacker_news_api.get_post(str(post_id))
+    post_title = p['title']
     uid_1 = unbabel_api.post_mt_translation(post_title, LAN_1)
     uid_2 = unbabel_api.post_mt_translation(post_title, LAN_2)
-    post['comments'] = fetch_comment_data(post['comments'])
-    add_translated_titles(post, {LAN_1: uid_1, LAN_2: uid_2})
-    db.new_posts.insert_one(post)
+    p['comments'] = fetch_comment_data(p['comments'])
+    add_translated_titles(p, {LAN_1: uid_1, LAN_2: uid_2})
+    post.save('new_posts', p)
 
 def add_translated_titles(post, uids):
     post["title_%s"%LAN_1] = unbabel_api.get_mt_translation(uids[LAN_1])

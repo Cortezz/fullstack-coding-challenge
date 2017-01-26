@@ -1,10 +1,11 @@
-from flask_pymongo import PyMongo
-from app import mongo
+from app import db
 import code
 
-
 def get_all():
-    return mongo.db.posts.find({}).sort('score',-1)
+    return db.posts.find({}).sort('score',-1)
 
 def get(post_id):
-    return mongo.db.posts.find_one({'id': post_id})
+    return db.posts.find_one({'id': post_id})
+
+def save(collection, post):
+    db[collection].insert_one(post)
