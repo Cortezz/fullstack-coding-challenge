@@ -34,8 +34,8 @@ def insert_item(db,post_id):
     db.new_posts.insert_one(post)
 
 def add_translated_titles(post, uids):
-    post["title-%s"%LAN_1] = unbabel_api.get_mt_translation(uids[LAN_1])
-    post["title-%s"%LAN_2] = unbabel_api.get_mt_translation(uids[LAN_2])
+    post["title_%s"%LAN_1] = unbabel_api.get_mt_translation(uids[LAN_1])
+    post["title_%s"%LAN_2] = unbabel_api.get_mt_translation(uids[LAN_2])
 
 
 def fetch_comment_data(comments_ids):
