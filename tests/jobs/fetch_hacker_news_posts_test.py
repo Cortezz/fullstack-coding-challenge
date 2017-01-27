@@ -4,25 +4,15 @@ from mock import MagicMock
 from mock import patch
 from pymongo import MongoClient
 import json
-import code
 import copy
 
 from app.jobs import fetch_hacker_news_posts
 from app.services import hacker_news_api, mongo
 
-
-
-
 class FetchHackerNewsPostsTestCase(unittest.TestCase):
-    client = MongoClient('localhost', 27017)
-    db = client['multilingual-hackernews_test']
-
 
     def SetUp(self):
         self.app = app.test_client()
-
-    def TearDown(self):
-        MongoClient('localhost', 27017).drop_database('multilingual-hackernews_test')
 
     @patch('app.services.hacker_news_api.get_comment')
     def test_fetch_comment_data(self, mock_get_comment):
@@ -58,5 +48,3 @@ class FetchHackerNewsPostsTestCase(unittest.TestCase):
 
         new_post = fetch_hacker_news_posts.update_old_post(old_post)
         assert len(new_post['comments']) == 2
-
-    

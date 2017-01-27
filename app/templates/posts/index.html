@@ -5,6 +5,8 @@
     {% for post in posts %}
       <li>
         <a href='/posts/{{post.id}}'>{{post.title}}</a> | <small> {{post.score}}</small>
+        <br />
+        <small>({{post.time}})</small>
         <div>
           <small>it: {{post.title_it}}</small> <br />
           <small>fr: {{post.title_fr}}</small>

@@ -1,4 +1,4 @@
 #!env/bin/python
-from app.services.jobs import save_hacker_news_posts
+from app.jobs import fetch_hacker_news_posts
 
-save_hacker_news_posts()
+fetch_hacker_news_posts.perform()
