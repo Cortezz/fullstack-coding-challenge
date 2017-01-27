@@ -14,3 +14,6 @@ def save_all(posts):
 
 def delete_all():
     db.posts.delete_many({})
+
+def update(post):
+    db.posts.find_one_and_replace({'id': post['id']}, post)

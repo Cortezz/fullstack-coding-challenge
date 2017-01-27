@@ -41,7 +41,8 @@ def insert_new_post(post_id):
     post_title = new_post['title']
     uid_1 = unbabel_api.post_mt_translation(post_title, LAN_1)
     uid_2 = unbabel_api.post_mt_translation(post_title, LAN_2)
-    new_post['comments'] = fetch_comment_data(new_post['comments'])
+    if 'comments' in new_post:
+        new_post['comments'] = fetch_comment_data(new_post['comments'])
     add_translated_titles(new_post, {LAN_1: uid_1, LAN_2: uid_2})
     return new_post
 
@@ -67,10 +68,11 @@ def update_old_post(old_post):
 def add_translated_titles(post, uids):
     for language, uid in uids.iteritems():
         machine_translation = unbabel_api.get_mt_translation(uid)
-        if 'text' in machine_translation:
+        if machine_translation['status'] == 'completed':
             post["title_%s"%language] = machine_translation['text']
         else:
             print "Unbabel polling job goes here"
+        machine_translation['post_id'] = post['id']
         translation.save(machine_translation)
 
 def fetch_comment_data(comments_ids):
@@ -80,3 +82,33 @@ def fetch_comment_data(comments_ids):
         if comment:
             comments.append(comment)
     return comments
+
+
+def unbabel_translation_polling():
+    print "Unbabel polling..."
+    translations = translation.get_by_not_status('completed')
+    unfinished_translations = []
+
+    start_time = time.time()
+    threads = [threading.Thread(target=update_translation,
+        args=(t, unfinished_translations)) for t in translations
+    ]
+    for thread in threads:
+        thread.start()
+    for thread in threads:
+        thread.join()
+    if len(unfinished_translations) == 0:
+        print "No unfinished translations!"
+    print("Polling completed: it took %s seconds ---" % (time.time() - start_time))
+
+def update_translation(trans, unfinished_translations):
+    machine_translation = unbabel_api.get_mt_translation(trans['uid'])
+    if machine_translation['status'] == 'completed':
+        trans['status'] = 'completed'
+        trans['translated_text'] = machine_translation['translated_text']
+        translation.update(trans)
+        p = post.get(trans['post_id'])
+        p['title_%s'%trans['target_language']] = machine_translation['translated_text']
+        post.update(p)
+    else:
+        unfinished_translations.append(translation['uid'])

@@ -12,11 +12,19 @@ def get_all_posts(limit):
 def get_post(post_id):
     response = requests.get(hacker_news_endpoint+'item/'+post_id+'.json').content
     data = json.loads(response)
-    return {
+    if 'kids' in data:
+        return {
+            'id': post_id,
+            'title': data['title'],
+            'score': data['score'],
+            'comments': data['kids'],
+            'author': data['by']
+        }
+    else:
+     return {
         'id': post_id,
         'title': data['title'],
         'score': data['score'],
-        'comments': data['kids'],
         'author': data['by']
     }
 

@@ -7,7 +7,7 @@ dashboard = Blueprint('dashboard', __name__, url_prefix='/dashboard')
 def show():
     completed_translations = translation.get_by_status('completed').count()
     failed_translations = translation.get_by_status('failed').count()
-    pending_translations = translation.get_by_status('in_progress').count()
+    pending_translations = translation.get_by_status('machine_translate_in_progress').count()
     return render_template('dashboard/show.html',
         completed = completed_translations,
         failed = failed_translations,

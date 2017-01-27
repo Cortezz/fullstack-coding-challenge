@@ -6,6 +6,7 @@
     <tr>
       <th>Translation ID</th>
       <th>Target Language</th>
+      <th>Original Text</th>
       {% if type == 'completed' %}
         <th> Translation </th>
       {% endif %}
@@ -16,8 +17,9 @@
     <tr>
       <td>{{translation.uid}}</td>
       <td>{{translation.target_language}}</td>
+      <td>{{translation.text}}</td>
       {% if type == 'completed' %}
-        <td>{{translation.text}}</td>
+        <td>{{translation.translated_text}}</td>
       {% endif %}
     </tr>
     {% endfor %}
