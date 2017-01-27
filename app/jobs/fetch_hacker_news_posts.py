@@ -56,7 +56,6 @@ def update_old_post(old_post):
             if old_comment:
                 old_comments.append(str(old_comment['id']))
 
-
     if 'comments' in updated_post:
         updated_post['comments'] = [str(comment) for comment in updated_post['comments']]
         updated_comments = list(set(updated_post['comments']) - set(old_comments))
