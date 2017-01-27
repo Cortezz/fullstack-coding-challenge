@@ -69,9 +69,7 @@ def add_translated_titles(post, uids):
     for language, uid in uids.iteritems():
         machine_translation = unbabel_api.get_mt_translation(uid)
         if machine_translation['status'] == 'completed':
-            post["title_%s"%language] = machine_translation['text']
-        else:
-            print "Unbabel polling job goes here"
+            post["title_%s"%language] = machine_translation['translated_text']
         machine_translation['post_id'] = post['id']
         translation.save(machine_translation)
 
