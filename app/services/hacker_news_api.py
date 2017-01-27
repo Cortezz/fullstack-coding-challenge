@@ -5,7 +5,7 @@ import json
 hacker_news_endpoint = 'https://hacker-news.firebaseio.com/v0/'
 
 def get_all_posts(limit):
-    response = requests.get(hacker_news_endpoint+'beststories.json').content
+    response = requests.get(hacker_news_endpoint+'topstories.json').content
     data = json.loads(response)
     return data[:limit]
 
@@ -25,6 +25,7 @@ def get_comment(comment_id):
     data = json.loads(response)
     if 'deleted' not in data:
         return {
+            'id': comment_id,
             'author': data['by'],
             'text': data['text']
         }

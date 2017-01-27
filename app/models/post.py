@@ -1,12 +1,12 @@
 from app import db
 
 def get_all():
-    return db.posts.find({}).sort('score',-1)
+    return db.posts.find({})
 
 def get(post_id):
     return db.posts.find_one({'id': post_id})
 
-def save(collection, post):
+def save(post):
     db.posts.insert_one(post)
 
 def save_all(posts):

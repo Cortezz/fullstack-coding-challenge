@@ -1,9 +1,9 @@
 import requests
 import json
+
 from config import UNBABEL_USER, UNBABEL_API_KEY
 
 unbabel_api_endpoint = 'https://sandbox.unbabel.com/tapi/v2/'
-
 headers = {
     'Authorization': 'ApiKey {}:{}'.format(UNBABEL_USER, UNBABEL_API_KEY),
     'Content-Type': 'application/json'

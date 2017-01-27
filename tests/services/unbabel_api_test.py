@@ -1,16 +1,13 @@
 import os
 import unittest
-import time
 
 from app import app
 from app.services import unbabel_api
 
-
-
 class UnbabelAPITestCase(unittest.TestCase):
+    
     def SetUp(self):
         self.app = app.test_client()
-
 
     def TearDown(self):
         print "clears test DB"
