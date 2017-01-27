@@ -11,7 +11,6 @@ def perform():
     empty_collection = mongo.collection_empty('posts')
     new_posts = []
 
-
     start_time = time.time()
     threads = [threading.Thread(target=insert_post, args=(post_id, new_posts, empty_collection)) for post_id in top_posts]
     for thread in threads:
@@ -51,18 +50,22 @@ def update_old_post(old_post):
 
     old_comments = []
     updated_post = hacker_news_api.get_post(old_post['id'])
-    for old_comment in old_post['comments']:
-        if old_comment:
-            old_comments.append(str(old_comment['id']))
 
-    updated_post['comments'] = [str(comment) for comment in updated_post['comments']]
-    updated_comments = list(set(updated_post['comments']) - set(old_comments))
+    if 'comments' in old_post:
+        for old_comment in old_post['comments']:
+            if old_comment:
+                old_comments.append(str(old_comment['id']))
 
-    new_comments = fetch_comment_data(updated_comments)
-    if new_comments:
-        print "Adding new comments to post #%s"%old_post['id']
-        for new_comment in new_comments:
-            old_post['comments'].append(new_comment)
+
+    if 'comments' in updated_post:
+        updated_post['comments'] = [str(comment) for comment in updated_post['comments']]
+        updated_comments = list(set(updated_post['comments']) - set(old_comments))
+        new_comments = fetch_comment_data(updated_comments)
+        if new_comments:
+            print "Adding new comments to post #%s"%old_post['id']
+            for new_comment in new_comments:
+                old_post['comments'].append(new_comment)
+
     return old_post
 
 def add_translated_titles(post, uids):

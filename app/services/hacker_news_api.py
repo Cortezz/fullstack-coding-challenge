@@ -1,6 +1,7 @@
 import httplib
 import requests
 import json
+import code
 
 hacker_news_endpoint = 'https://hacker-news.firebaseio.com/v0/'
 
@@ -12,6 +13,7 @@ def get_all_posts(limit):
 def get_post(post_id):
     response = requests.get(hacker_news_endpoint+'item/'+post_id+'.json').content
     data = json.loads(response)
+
     if 'kids' in data:
         return {
             'id': post_id,
@@ -31,6 +33,7 @@ def get_post(post_id):
 def get_comment(comment_id):
     response = requests.get(hacker_news_endpoint+'item/'+comment_id+'.json').content
     data = json.loads(response)
+    code.interact(local=dict(globals(), **locals()))
     if 'deleted' not in data:
         return {
             'id': comment_id,
