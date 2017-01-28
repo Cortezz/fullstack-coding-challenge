@@ -57,7 +57,8 @@ Here's a few notes about my solution:
 And here's a list of things I didn't manage to complete:
 * Start the polling job only after fetching new HN stories and pause it afterwards.
 * Have mocked mongo tests or at least a test database for the tests which involved database operations.
-* Have the jobs run on a separate script so they can be called before the server is up and running. Right now the jobs are added.
+* Have the jobs run on a separate script so they can be called before the server is up and running. Right now the jobs are added when the `run.py`is called.
+* Have a cleaner model solution. As it stands it's not really a model but rather a 'DAO-esque' entity.
 
 #### Usage Instructions
 
@@ -70,6 +71,7 @@ Install the following packages installed:
 ```
 pip install flask
 pip install pymongo
+pip install requests
 pip install mock
 pip install apscheduler
 ```
@@ -80,10 +82,12 @@ mongod
 ./db_update
 ```
 
-And you're good to go!
+Then run the server.
 ```
 ./run.py
 ```
+
+Visit `localhost:5000/posts` and you're good to go!
 
 ###### Tests
 
