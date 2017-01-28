@@ -1,4 +1,3 @@
-import os
 import unittest
 
 from config import TOP_POSTS_LIMIT

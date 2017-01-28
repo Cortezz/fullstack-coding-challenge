@@ -2,6 +2,10 @@
 
 {% block content%}
   <h2>{{post.title}}</h2>
+  <div>
+    <small><i>it: {{post.title_it if post.title_it else 'italian translation in progress'}}</i></small> <br />
+    <small><i>fr: {{post.title_fr if post.title_fr else 'french translation in progress'}}</i></small>
+  </div>
   <small>by {{post.author}} | {{post.score}} upvotes</small><br />
   <small>({{post.time}})</small>
   <hr />

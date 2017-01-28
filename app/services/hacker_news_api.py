@@ -1,7 +1,5 @@
-import httplib
 import requests
 import json
-import code
 
 from lib import time_conversion
 
@@ -16,6 +14,16 @@ def get_post(post_id):
     response = requests.get(hacker_news_endpoint+'item/'+post_id+'.json').content
     data = json.loads(response)
 
+    return post_data(data, post_id)
+
+def get_comment(comment_id):
+    response = requests.get(hacker_news_endpoint+'item/'+comment_id+'.json').content
+    data = json.loads(response)
+
+    return comment_data(data, comment_id)
+
+
+def post_data(data, post_id):
     if 'kids' in data:
         return {
             'id': post_id,
@@ -34,10 +42,7 @@ def get_post(post_id):
         'time': time_conversion.unix_time_to_string(data['time'])
     }
 
-def get_comment(comment_id):
-    response = requests.get(hacker_news_endpoint+'item/'+comment_id+'.json').content
-    data = json.loads(response)
-
+def comment_data(data, comment_id):
     if 'deleted' not in data:
         return {
             'id': comment_id,

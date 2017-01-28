@@ -4,8 +4,6 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from app.jobs import fetch_hacker_news_posts, unbabel_polling
 import logging
 
-
-#use_reloader = False
 scheduler = BackgroundScheduler()
 logging.basicConfig()
 scheduler.add_job(fetch_hacker_news_posts.perform, 'interval', minutes=5)

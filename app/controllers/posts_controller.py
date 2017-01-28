@@ -1,7 +1,5 @@
-from flask import Blueprint, request, render_template, flash, g, session, redirect, url_for
+from flask import Blueprint, render_template
 from app.models import post
-from config import TOP_POSTS_LIMIT
-
 
 posts = Blueprint('posts', __name__, url_prefix='/posts')
 

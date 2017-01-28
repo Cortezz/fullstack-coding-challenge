@@ -1,8 +1,6 @@
-import os
 import unittest
 from mock import MagicMock
 from mock import patch
-from pymongo import MongoClient
 import json
 import copy
 

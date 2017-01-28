@@ -5,7 +5,6 @@ from app.services import unbabel_api
 from app.models import post, translation
 
 def perform():
-    print "Starting Unbabel polling job"
     translations = translation.get_by_not_status('completed')
     unfinished_translations = []
 
@@ -17,9 +16,9 @@ def perform():
         thread.start()
     for thread in threads:
         thread.join()
+
     if len(unfinished_translations) == 0:
         print "No unfinished translations!"
-    print("Polling completed: it took %s seconds ---" % (time.time() - start_time))
 
 def update_translation(trans, unfinished_translations):
     machine_translation = unbabel_api.get_mt_translation(trans['uid'])

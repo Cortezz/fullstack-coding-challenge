@@ -8,8 +8,8 @@
         <br />
         <small>({{post.time}})</small>
         <div>
-          <small>it: {{post.title_it}}</small> <br />
-          <small>fr: {{post.title_fr}}</small>
+          <small><i>it: {{post.title_it if post.title_it else 'italian translation in progress'}}</i></small> <br />
+          <small><i>fr: {{post.title_fr if post.title_fr else 'french translation in progress'}}</i></small>
         </div>
       </li>
     {% endfor %}
